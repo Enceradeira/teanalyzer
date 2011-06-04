@@ -15,7 +15,7 @@ describe 'Triad' do
       end
     end
     describe 'base_effort' do
-      it 'should account for no effort on 1 key' do
+      it 'should account for no effort on 1st key' do
         subject.base_effort.should ==(0)
       end
     end
@@ -23,7 +23,7 @@ describe 'Triad' do
   context 'bac' do
     subject { Triad.new('b', 'a', 'c') }
     describe 'base_effort' do
-      it 'should account for no effort on 2 key' do
+      it 'should account for no effort on 2nd key' do
         subject.base_effort.should ==(3.5)
       end
     end
@@ -32,7 +32,7 @@ describe 'Triad' do
   context 'bca' do
     subject { Triad.new('b', 'c', 'a') }
     describe 'base_effort' do
-      it 'should account for no effort on 3 key' do
+      it 'should account for no effort on 3th key' do
         subject.base_effort.should ==(10.5)
       end
     end

@@ -18,10 +18,10 @@ class Triad
   end
 
   def base_effort
-    b1 = Keyboard.get_effort(@char1)
-    b2 = Keyboard.get_effort(@char2)
-    b3 = Keyboard.get_effort(@char3)
-    K1*b1*(1+K2*b2*(1+K3*b3))
+    b1 = Keyboard.get_key_for(@char1)
+    b2 = Keyboard.get_key_for(@char2)
+    b3 = Keyboard.get_key_for(@char3)
+    K1*b1.distance*(1+K2*b2.distance*(1+K3*b3.distance))
   end
 
   def ==(another)
