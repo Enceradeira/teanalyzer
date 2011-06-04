@@ -54,7 +54,7 @@ class Key
   end
 
   public
-  attr_accessor :chars, :distance
+  attr_reader :chars, :distance, :hand
 
   def initialize chars, distance, hand, row, finger, parameters
     @chars = chars.chars.sort

@@ -82,4 +82,24 @@ describe 'Triad' do
       triads.should have(0).items
     end
   end
+  describe 'hand_effort' do
+    describe 'both hand used, not alternating' do
+      subject { Triad.new 'e', 'e', 'm' }
+      specify { subject.hand_effort.should be(0) }
+      subject { Triad.new 'o', 'p', 'e' }
+      specify { subject.hand_effort.should be(0) }
+    end
+    describe 'alternating' do
+      subject { Triad.new 'a', 'j', 'a' }
+      specify { subject.hand_effort.should be(1) }
+      subject { Triad.new 's', 'o', 't' }
+      specify { subject.hand_effort.should be(1) }
+    end
+    describe 'same' do
+      subject { Triad.new 'a', 's', 'e' }
+      specify { subject.hand_effort.should be(2) }
+      subject { Triad.new 'm', 'o', 'n' }
+      specify { subject.hand_effort.should be(2) }
+    end
+  end
 end
