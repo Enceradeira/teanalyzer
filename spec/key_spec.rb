@@ -53,4 +53,22 @@ describe 'Key' do
       end
     end
   end
+  describe 'row_idx' do
+    context 'first row' do
+      subject { Key.new 'Y', 1.0, :left, :first_row, :finger_3, @p }
+      specify { subject.row_idx.should be==(0) }
+    end
+    context 'second row' do
+      subject { Key.new 'A', 1.0, :left, :second_row, :finger_3, @p }
+      specify { subject.row_idx.should be==(1) }
+    end
+    context 'third row' do
+      subject { Key.new 'Q', 1.0, :left, :third_row, :finger_3, @p }
+      specify { subject.row_idx.should be==(2) }
+    end
+    context 'forth row' do
+      subject { Key.new '1', 1.0, :left, :forth_row, :finger_3, @p }
+      specify { subject.row_idx.should be==(3) }
+    end
+  end
 end

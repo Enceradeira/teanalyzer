@@ -38,6 +38,49 @@ class Triad
     end
   end
 
+  def keys selector
+    [selector.call(@keys[0]), selector.call(@keys[1]), selector.call(@keys[2])]
+  end
+
+  def keys_row_idx
+    t = keys(lambda { |k| k.row_idx })
+    yield(t[0], t[1], t[2])
+  end
+
+  def row_effort
+    if keys_row_idx { |i1, i2, i3| i1 == i2 && i2 == i3 }
+      #same
+      0
+    elsif keys_row_idx { |i1, i2, i3| i1 == i2 && i2 > i3 || i1 > i2 && i2 == i3 }
+      # downward progression, with repetition
+      1
+    elsif keys_row_idx { |i1, i2, i3| i1 == i2 && i2 < i3 || i1 < i2 && i2 == i3 }
+      # upward progression, with repetition
+      2
+    elsif keys_row_idx { |i1, i2, i3| i1 != i2 && (i1 - i2).abs == 1 && i1 == i3 }
+      # some different, not monotonic, max row change 1
+      3
+    elsif  keys_row_idx { |i1, i2, i3| i1 > i2 && i2 > i3 }
+      # downward progression
+      4
+    elsif keys_row_idx { |i1, i2, i3| i1 < i2 && i2 < i3 }
+      # upward progression
+      6
+    elsif keys_row_idx { |i1, i2, i3| (i1 != i2 && i2 != i3) && [(i1-i2), (i2-i3)].min < -1 }
+      # some different, not monotonic, max row change upward > 1
+      7
+    elsif keys_row_idx { |i1, i2, i3| (i1 != i2 && i2 != i3) && [(i1-i2), (i2-i3)].max > 1 }
+      # some different, not monotonic, max row change downward > 1
+      5
+    else
+      keys_row_idx { |i1, i2, i3|  raise ArgumentError, "can't determine row_effort for combination (#{i1},#{i2},#{i3})"}
+    end
+  end
+
+  def finger_effort
+    0
+  end
+
   def base_effort
     K1*@keys[0].distance*(1+K2*@keys[1].distance*(1+K3*@keys[2].distance))
   end
