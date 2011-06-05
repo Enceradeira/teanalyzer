@@ -167,8 +167,6 @@ describe 'Triad' do
         subject { Triad.new 'k', 'i', 'b' }
         specify { subject.row_effort.should be(5) }
       end
-
-
     end
     describe 'upward progression' do
       context 'zaw' do
@@ -193,7 +191,6 @@ describe 'Triad' do
         subject { Triad.new 'b', 'r', 'v' }
         specify { subject.row_effort.should be(7) }
       end
-
     end
   end
   describe 'finger_effort' do

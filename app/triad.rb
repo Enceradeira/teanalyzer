@@ -48,32 +48,32 @@ class Triad
   end
 
   def row_effort
-    if keys_row_idx { |i1, i2, i3| i1 == i2 && i2 == i3 }
-      #same
-      0
-    elsif keys_row_idx { |i1, i2, i3| i1 == i2 && i2 > i3 || i1 > i2 && i2 == i3 }
-      # downward progression, with repetition
-      1
-    elsif keys_row_idx { |i1, i2, i3| i1 == i2 && i2 < i3 || i1 < i2 && i2 == i3 }
-      # upward progression, with repetition
-      2
-    elsif keys_row_idx { |i1, i2, i3| i1 != i2 && (i1 - i2).abs == 1 && i1 == i3 }
-      # some different, not monotonic, max row change 1
-      3
-    elsif  keys_row_idx { |i1, i2, i3| i1 > i2 && i2 > i3 }
-      # downward progression
-      4
+    if keys_row_idx { |i1, i2, i3| (i1 != i2 && i2 != i3) && [(i1-i2), (i2-i3)].min < -1 }
+      # some different, not monotonic, max row change upward > 1
+      7
     elsif keys_row_idx { |i1, i2, i3| i1 < i2 && i2 < i3 }
       # upward progression
       6
-    elsif keys_row_idx { |i1, i2, i3| (i1 != i2 && i2 != i3) && [(i1-i2), (i2-i3)].min < -1 }
-      # some different, not monotonic, max row change upward > 1
-      7
     elsif keys_row_idx { |i1, i2, i3| (i1 != i2 && i2 != i3) && [(i1-i2), (i2-i3)].max > 1 }
       # some different, not monotonic, max row change downward > 1
       5
+    elsif  keys_row_idx { |i1, i2, i3| i1 > i2 && i2 > i3 }
+      # downward progression
+      4
+    elsif keys_row_idx { |i1, i2, i3| i1 != i2 && (i1 - i2).abs == 1 && i1 == i3 }
+      # some different, not monotonic, max row change 1
+      3
+    elsif keys_row_idx { |i1, i2, i3| i1 == i2 && i2 < i3 || i1 < i2 && i2 == i3 }
+      # upward progression, with repetition
+      2
+    elsif keys_row_idx { |i1, i2, i3| i1 == i2 && i2 > i3 || i1 > i2 && i2 == i3 }
+      # downward progression, with repetition
+      1
+    elsif keys_row_idx { |i1, i2, i3| i1 == i2 && i2 == i3 }
+      #same
+      0
     else
-      keys_row_idx { |i1, i2, i3|  raise ArgumentError, "can't determine row_effort for combination (#{i1},#{i2},#{i3})"}
+      keys_row_idx { |i1, i2, i3| raise ArgumentError, "can't determine row_effort for combination (#{i1},#{i2},#{i3})" }
     end
   end
 
