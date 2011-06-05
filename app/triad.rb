@@ -4,11 +4,30 @@ require File.expand_path('./../keyboard', __FILE__)
 class Triad
   private
   def alternating_hand?
-    @keys[0].hand != @keys[1].hand && @keys[1].hand != @keys[2].hand
+    keys_hand { |h1, h2, h3| h1!=h2 && h2 != h3 }
   end
 
-  def save_hand?
-    @keys[0].hand == @keys[1].hand && @keys[1].hand == @keys[2].hand
+  def same_hand?
+    keys_hand { |h1, h2, h3| h1==h2 && h2 == h3 }
+  end
+
+  def keys selector
+    [selector.call(@keys[0]), selector.call(@keys[1]), selector.call(@keys[2])]
+  end
+
+  def keys_row_idx
+    t = keys(lambda { |k| k.row_idx })
+    yield(t[0], t[1], t[2])
+  end
+
+  def keys_hand
+    t = keys(lambda { |k| k.hand })
+    yield(t[0], t[1], t[2])
+  end
+
+  def keys_distance
+    t = keys(lambda { |k| k.distance })
+    yield(t[0], t[1], t[2])
   end
 
   public
@@ -31,21 +50,13 @@ class Triad
   def hand_effort
     if alternating_hand?
       1
-    elsif save_hand?
+    elsif same_hand?
       2
     else
       0
     end
   end
 
-  def keys selector
-    [selector.call(@keys[0]), selector.call(@keys[1]), selector.call(@keys[2])]
-  end
-
-  def keys_row_idx
-    t = keys(lambda { |k| k.row_idx })
-    yield(t[0], t[1], t[2])
-  end
 
   def row_effort
     if keys_row_idx { |i1, i2, i3| (i1 != i2 && i2 != i3) && [(i1-i2), (i2-i3)].min < -1 }
@@ -82,7 +93,7 @@ class Triad
   end
 
   def base_effort
-    K1*@keys[0].distance*(1+K2*@keys[1].distance*(1+K3*@keys[2].distance))
+    keys_distance { |d1, d2, d3| K1*d1*(1+K2*d2*(1+K3*d3)) }
   end
 
   def ==(another)
