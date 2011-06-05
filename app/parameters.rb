@@ -2,7 +2,8 @@ require File.expand_path('./../hands_parameters', __FILE__)
 require File.expand_path('./../rows_parameters', __FILE__)
 
 class Parameters
-  attr_accessor :default_penalty, :hands, :rows, :hands_penalty_weight, :rows_penalty_weight, :fingers_penalty_weight 
+  public
+  attr_accessor :default_penalty, :hands, :rows, :hands_penalty_weight, :rows_penalty_weight, :fingers_penalty_weight
 
   def initialize
     @default_penalty = 0.0
@@ -35,6 +36,14 @@ class Parameters
     @hands.right.finger_7_penalty = 0.0
     @hands.right.finger_8_penalty = 0.0
     @hands.right.finger_9_penalty = 0.0
-      
+  end
+
+  @@instance = Parameters.new
+  def self.instance
+      @@instance
+  end
+
+  def self.configure
+    yield self.instance if block_given?
   end
 end

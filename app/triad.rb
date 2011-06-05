@@ -36,6 +36,78 @@ class Triad
     block.call(t[0], t[1], t[2])
   end
 
+  #fingers
+  def all_fingers_same(k1, k2, k3)
+    k1.finger_idx == k2.finger_idx && k2.finger_idx == k3.finger_idx
+  end
+
+  def all_fingers_different(k1, k2, k3)
+    k1.finger_idx != k2.finger_idx && k2.finger_idx != k3.finger_idx && k1.finger_idx != k3.finger_idx
+  end
+
+  def some_fingers_different(k1, k2, k3)
+    fingers = [k1.finger_idx, k2.finger_idx, k3.finger_idx].sort
+    a = fingers[0]
+    b = fingers[1]
+    c = fingers[2]
+    (a == b && b != c) || (a != b && b == c)
+  end
+
+  def fingers_progress_right(k1, k2, k3)
+    (k1.finger_idx <= k2.finger_idx && k2.finger_idx <= k3.finger_idx)
+  end
+
+  def fingers_progress_left(k1, k2, k3)
+    (k1.finger_idx >= k2.finger_idx && k2.finger_idx >= k3.finger_idx)
+  end
+
+  def monotonic_progression(k1, k2, k3)
+    fingers_progress_right(k1, k2, k3) || fingers_progress_left(k1, k2, k3)
+  end
+
+  def finger_rolling_right(k1, k2, k3)
+    k1.finger_idx < k3.finger_idx && k3.finger_idx < k2.finger_idx
+  end
+
+  def finger_rolling_left(k1, k2, k3)
+    k1.finger_idx > k3.finger_idx && k3.finger_idx > k2.finger_idx
+  end
+
+  def finger_rolling(k1, k2, k3)
+    finger_rolling_left(k1, k2, k3) || finger_rolling_right(k1, k2, k3)
+  end
+
+  def middle_left_right(k1, k2, k3)
+    # e.g: nep
+    k2.finger_idx < k1.finger_idx && k1.finger_idx < k3.finger_idx
+  end
+
+  def middle_right_left(k1, k2, k3)
+    # e.g: dhx
+    k3.finger_idx < k1.finger_idx && k1.finger_idx < k2.finger_idx
+  end
+
+  def not_monotonic(k1, k2, k3)
+    middle_left_right(k1, k2, k3) || middle_right_left(k1, k2, k3)
+  end
+
+  def not_monotonic_progression(k1, k2, k3)
+    k1.finger_idx != k2.finger_idx && k1.finger_idx == k3.finger_idx
+  end
+
+  #keys
+  def no_key_repeats(k1, k2, k3)
+    k1 != k2 && k2 != k3 && k1 != k3
+  end
+
+  def some_keys_repeat(k1, k2, k3)
+    k1 == k2 || k2 == k3
+  end
+
+  def all_keys_different(k1, k2, k3)
+    k1 != k2 && k2 != k3 && k1 != k3
+  end
+
   public
   OVERLAP = 2
   K1 = 1
@@ -98,84 +170,11 @@ class Triad
     end
   end
 
-
-  #fingers
-  def all_fingers_same(k1, k2, k3)
-    k1.finger_idx == k2.finger_idx && k2.finger_idx == k3.finger_idx
-  end
-
-  def all_fingers_different(k1, k2, k3)
-    k1.finger_idx != k2.finger_idx && k2.finger_idx != k3.finger_idx && k1.finger_idx != k3.finger_idx
-  end
-
-  def some_fingers_different(k1, k2, k3)
-    fingers = [k1.finger_idx,k2.finger_idx,k3.finger_idx].sort
-    a = fingers[0]
-    b = fingers[1]
-    c = fingers[2]
-    (a == b && b != c) || (a != b && b == c)
-  end
-
-  def fingers_progress_right(k1, k2, k3)
-    (k1.finger_idx <= k2.finger_idx && k2.finger_idx <= k3.finger_idx)
-  end
-
-  def fingers_progress_left(k1, k2, k3)
-    (k1.finger_idx >= k2.finger_idx && k2.finger_idx >= k3.finger_idx)
-  end
-
-  def monotonic_progression(k1, k2, k3)
-    fingers_progress_right(k1, k2, k3) || fingers_progress_left(k1, k2, k3)
-  end
-
-  def finger_rolling_right(k1, k2, k3)
-    k1.finger_idx < k3.finger_idx && k3.finger_idx < k2.finger_idx
-  end
-
-  def finger_rolling_left(k1, k2, k3)
-    k1.finger_idx > k3.finger_idx && k3.finger_idx > k2.finger_idx
-  end
-
-  def finger_rolling(k1, k2, k3)
-    finger_rolling_left(k1, k2, k3) || finger_rolling_right(k1, k2, k3)
-  end
-
-  def middle_left_right(k1, k2, k3)
-    # e.g: nep
-    k2.finger_idx < k1.finger_idx && k1.finger_idx < k3.finger_idx
-  end
-
-  def middle_right_left(k1, k2, k3)
-    # e.g: dhx
-    k3.finger_idx < k1.finger_idx && k1.finger_idx < k2.finger_idx
-  end
-
-  def not_monotonic(k1, k2, k3)
-    middle_left_right(k1, k2, k3) || middle_right_left(k1, k2, k3)
-  end
-
-  def not_monotonic_progression(k1, k2, k3)
-    k1.finger_idx != k2.finger_idx && k1.finger_idx == k3.finger_idx
-  end
-
-  #keys
-  def no_key_repeats(k1, k2, k3)
-    k1 != k2 && k2 != k3 && k1 != k3
-  end
-
-  def some_keys_repeat(k1, k2, k3)
-    k1 == k2 || k2 == k3
-  end
-
-  def all_keys_different(k1, k2, k3)
-    k1 != k2 && k2 != k3 && k1 != k3
-  end
-
   def finger_effort
     if keys_key { |k1, k2, k3| all_fingers_same(k1, k2, k3) && all_keys_different(k1, k2, k3) }
       # same, no key repeat
       7
-    elsif keys_key { |k1, k2, k3| some_fingers_different(k1, k2, k3) &&  no_key_repeats(k1,k2,k3) && monotonic_progression(k1,k2,k3)}
+    elsif keys_key { |k1, k2, k3| some_fingers_different(k1, k2, k3) && no_key_repeats(k1, k2, k3) && monotonic_progression(k1, k2, k3) }
       # some different, no key repeat, monotonic progression
       6
     elsif keys_key { |k1, k2, k3| all_fingers_same(k1, k2, k3) && (k1 == k2 || k2 == k3) }
@@ -200,7 +199,6 @@ class Triad
       keys_key { |k1, k2, k3| cant_determine_effort('finger_effort', k1.chars, k2.chars, k3.chars) }
     end
   end
-
 
   def base_effort
     keys_distance { |d1, d2, d3| K1*d1*(1+K2*d2*(1+K3*d3)) }

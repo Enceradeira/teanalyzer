@@ -291,4 +291,7 @@ describe 'Triad' do
       end
     end
   end
+  describe 'path_effort' do
+    # context 'adj'
+  end
 end

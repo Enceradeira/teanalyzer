@@ -1,3 +1,5 @@
+require File.expand_path('./../parameters', __FILE__)
+
 class Key
   private
   def p_hand
@@ -56,13 +58,13 @@ class Key
   public
   attr_reader :chars, :distance, :hand, :row
 
-  def initialize chars, distance, hand, row, finger, parameters
+  def initialize chars, distance, hand, row, finger
     @chars = chars.chars.sort
     @distance = distance
-    @parameters = parameters
     @hand = hand
     @row = row
     @finger = finger
+    @parameters = Parameters.instance
   end
 
   def finger_idx
