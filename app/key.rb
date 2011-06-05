@@ -1,6 +1,6 @@
 class Key
   private
-  def pHand
+  def p_hand
     case @hand
       when :left
         @parameters.hands.left.penalty
@@ -11,7 +11,7 @@ class Key
     end
   end
 
-  def pRow
+  def p_row
     case @row
       when :first_row
         @parameters.rows.row_1_penalty_bottom
@@ -26,7 +26,7 @@ class Key
     end
   end
 
-  def pFinger
+  def p_finger
     case @finger
       when :finger_0
         @parameters.hands.left.finger_0_penalty
@@ -65,6 +65,11 @@ class Key
     @finger = finger
   end
 
+  def finger_idx
+    match = @finger.to_s.scan(/^finger_(\d)$/)
+    match[0][0].to_i
+  end
+
   def row_idx
     case @row
       when :first_row
@@ -94,6 +99,6 @@ class Key
     w_hand = p.hands_penalty_weight
     w_row = p.rows_penalty_weight
     w_finger = p.fingers_penalty_weight
-    (w0 + w_hand * pHand + w_row * pRow + w_finger * pFinger)
+    (w0 + w_hand * p_hand + w_row * p_row + w_finger * p_finger)
   end
 end

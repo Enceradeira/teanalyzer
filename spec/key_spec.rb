@@ -71,4 +71,14 @@ describe 'Key' do
       specify { subject.row_idx.should be==(3) }
     end
   end
+  describe 'finger_idx' do
+    context '1st finger' do
+      subject { Key.new 'Y', 1.0, :left, :first_row, :finger_0, @p }
+      specify { subject.finger_idx.should be==(0) }
+    end
+    context '5th finger' do
+      subject { Key.new 'A', 1.0, :left, :second_row, :finger_4, @p }
+      specify { subject.finger_idx.should be==(4) }
+    end
+  end
 end

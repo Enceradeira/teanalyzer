@@ -195,13 +195,14 @@ describe 'Triad' do
   end
   describe 'finger_effort' do
     describe 'all different, monotonic progression' do
-      context 'asd'
-      subject { Triad.new 'a', 's', 'd' }
-      specify { subject.finger_effort.should be(0) }
-    end
-    context 'pua' do
-      subject { Triad.new 'p', 'u', 'a' }
-      specify { subject.finger_effort.should be(0) }
+      context 'asd' do
+        subject { Triad.new 'a', 's', 'd' }
+        specify { subject.finger_effort.should be(0) }
+      end
+      context 'pua' do
+        subject { Triad.new 'p', 'u', 'a' }
+        specify { subject.finger_effort.should be(0) }
+      end
     end
     describe 'some different, key repeat, monotonic progression' do
       context 'app' do
@@ -210,6 +211,10 @@ describe 'Triad' do
       end
       context 'err' do
         subject { Triad.new 'e', 'r', 'r' }
+        specify { subject.finger_effort.should be(1) }
+      end
+      context 'aab' do
+        subject { Triad.new 'a', 'a', 'b' }
         specify { subject.finger_effort.should be(1) }
       end
     end
@@ -232,14 +237,22 @@ describe 'Triad' do
         subject { Triad.new 'n', 'e', 'p' }
         specify { subject.finger_effort.should be(3) }
       end
+      context 'dhx' do
+        subject { Triad.new 'd', 'h', 'x' }
+        specify { subject.finger_effort.should be(3) }
+      end
     end
-    describe 'some different, not monotonic' do
+    describe 'some different, not monotonic progression' do
       context 'kri' do
         subject { Triad.new 'k', 'r', 'i' }
         specify { subject.finger_effort.should be(4) }
       end
       context 'maj' do
         subject { Triad.new 'm', 'a', 'j' }
+        specify { subject.finger_effort.should be(4) }
+      end
+      context 'aha' do
+        subject { Triad.new 'a', 'h', 'a' }
         specify { subject.finger_effort.should be(4) }
       end
     end
@@ -250,6 +263,10 @@ describe 'Triad' do
       end
       context 'loo' do
         subject { Triad.new 'l', 'o', 'o' }
+        specify { subject.finger_effort.should be(5) }
+      end
+      context 'ffg' do
+        subject { Triad.new 'f', 'f', 'g' }
         specify { subject.finger_effort.should be(5) }
       end
     end
