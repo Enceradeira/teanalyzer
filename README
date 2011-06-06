@@ -1,5 +1,5 @@
 Teanalyzer (typing effort analyzer) analyzes single words and returns a number indicating how much effort it takes
-to type that word on a keyboard.
+to type a word on a keyboard.
 
 Teanalyzer is a ruby implementation of the typing effort model described by Martin Krzywinski.
 (see http://mkweb.bcgsc.ca/carpalx/?typing_effort for details)
