@@ -7,4 +7,10 @@ Teanalyzer is a ruby implementation of the typing effort model described by Mart
 Usage:
 Teanalyzer.calculate('hello')            #=> 5.83333333333333
 
+Configuration (optional):
+Parameters.configure do |p|
+    p.base_effort_weight = 0.5
+    p.penalty_effort_weight = 0.4
+    p.stroke_path_effort_weight = 0.3
+end
 
