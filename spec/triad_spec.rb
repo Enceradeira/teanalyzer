@@ -23,23 +23,6 @@ describe 'Triad' do
         subject.base_effort.should ==(0)
       end
     end
-    describe 'penalty effort' do
-      it 'should add up all penalties' do
-        # following configuration yields a penalty of 0.2 for every key
-        Parameters.configure do |p|
-          # adjust penalties in order to have the same penalty for every key (simpler test)
-          p.default_penalty = 0.2
-          p.hands_penalty_weight = 0.0
-          p.rows_penalty_weight = 0.0
-          p.fingers_penalty_weight = 0.0
-          # adjust weight in order to test them
-          p.key_1_weight = 0.5
-          p.key_2_weight = 0.4
-          p.key_3_weight = 0.3
-        end
-        subject.penalty_effort.should == (0.5*0.2*(1+0.4*0.2*(1+0.3*0.2)))
-      end
-    end
   end
   context 'bac' do
     subject { Triad.new('b', 'a', 'c') }
@@ -100,6 +83,23 @@ describe 'Triad' do
       triads = Triad.from_word(nil)
 
       triads.should have(0).items
+    end
+  end
+  describe 'penalty effort' do
+    it 'should add up all penalties' do
+      # following configuration yields a penalty of 0.2 for every key
+      Parameters.configure do |p|
+        # adjust penalties in order to have the same penalty for every key (simpler test)
+        p.default_penalty = 0.2
+        p.hands_penalty_weight = 0.0
+        p.rows_penalty_weight = 0.0
+        p.fingers_penalty_weight = 0.0
+        # adjust weight in order to test them
+        p.key_1_weight = 0.5
+        p.key_2_weight = 0.4
+        p.key_3_weight = 0.3
+      end
+      Triad.new('a', 'b', 'c').penalty_effort.should == (0.5*0.2*(1+0.4*0.2*(1+0.3*0.2)))
     end
   end
   describe 'path_effort' do
@@ -399,6 +399,27 @@ describe 'Triad' do
           end
         end
       end
+    end
+  end
+  describe 'effort' do
+    it 'should add up effort components' do
+      Parameters.configure do |p|
+        # adjust weight in order to test them
+        p.base_effort_weight = 0.5
+        p.penalty_effort_weight = 0.4
+        p.stroke_path_effort_weight = 0.3
+      end
+
+      t = Triad.new('b', 'b', 'c')
+      be = t.base_effort
+      pe = t.penalty_effort
+      sp = t.path_effort
+      # validate test
+      be.should > 0.0
+      pe.should > 0.0
+      sp.should > 0.0
+      # test
+      t.effort.should ==(0.5*be+0.4*pe+0.3*sp)
     end
   end
 end

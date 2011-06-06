@@ -218,6 +218,12 @@ class Triad
         finger_effort * p.rows_finger_path_weight)
   end
 
+  def effort
+    p = Parameters.instance
+    p.base_effort_weight*base_effort + p.penalty_effort_weight*penalty_effort + p.stroke_path_effort_weight*path_effort
+
+  end
+
   def ==(another)
     if another == nil
       false
