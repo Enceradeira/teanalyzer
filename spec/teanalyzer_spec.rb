@@ -1,4 +1,4 @@
-require File.expand_path('./../../app/teanalyzer', __FILE__)
+require File.expand_path('./../../lib/teanalyzer', __FILE__)
 
 describe 'Teanalyzer' do
   subject { Teanalyzer }

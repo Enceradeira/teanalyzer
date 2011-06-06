@@ -1,5 +1,5 @@
-require File.expand_path('./../../app/key', __FILE__)
-require File.expand_path('./../../app/parameters', __FILE__)
+require File.expand_path('./../../lib/key', __FILE__)
+require File.expand_path('./../../lib/parameters', __FILE__)
 
 describe 'Key' do
   before(:each) {

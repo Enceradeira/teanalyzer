@@ -1,5 +1,5 @@
-require File.expand_path('./../../app/triad', __FILE__)
-require File.expand_path('./../../app/keyboard', __FILE__)
+require File.expand_path('./../../lib/triad', __FILE__)
+require File.expand_path('./../../lib/keyboard', __FILE__)
 
 describe 'Triad' do
   before(:each) do

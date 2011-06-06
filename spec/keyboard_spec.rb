@@ -1,5 +1,5 @@
-require File.expand_path('./../../app/keyboard', __FILE__)
-require File.expand_path('./../../app/parameters', __FILE__)
+require File.expand_path('./../../lib/keyboard', __FILE__)
+require File.expand_path('./../../lib/parameters', __FILE__)
 
 describe 'Keyboard' do
   describe 'get_key_for' do

@@ -2,15 +2,15 @@
 
 Gem::Specification.new do |s|
   s.name = %q{teanalyzer}
-  s.version = "0.9.0"
+  s.version = "0.9.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Jorg Jenni}]
   s.date = %q{2011-06-06}
   s.description = %q{An analyzer for keyboard typing efforts}
   s.email = %q{jorg.jenni@jennius.co.uk}
-  s.extra_rdoc_files = [%q{README}]
-  s.files = [%q{Gemfile}, %q{Gemfile.lock}, %q{README}, %q{Rakefile}, %q{app/finger_parameters.rb}, %q{app/hand_parameters.rb}, %q{app/hands_parameters.rb}, %q{app/key.rb}, %q{app/keyboard.rb}, %q{app/keyboards/uk-keyboard}, %q{app/parameters.rb}, %q{app/rows_parameters.rb}, %q{app/teanalyzer.rb}, %q{app/triad.rb}, %q{spec/hand_parameters_spec.rb}, %q{spec/key_spec.rb}, %q{spec/keyboard_spec.rb}, %q{spec/teanalyzer_spec.rb}, %q{spec/triad_spec.rb}, %q{Manifest}, %q{teanalyzer.gemspec}]
+  s.extra_rdoc_files = [%q{README}, %q{lib/finger_parameters.rb}, %q{lib/hand_parameters.rb}, %q{lib/hands_parameters.rb}, %q{lib/key.rb}, %q{lib/keyboard.rb}, %q{lib/keyboards/uk-keyboard}, %q{lib/parameters.rb}, %q{lib/rows_parameters.rb}, %q{lib/teanalyzer.rb}, %q{lib/triad.rb}]
+  s.files = [%q{Gemfile}, %q{Gemfile.lock}, %q{HOWTO}, %q{Manifest}, %q{README}, %q{Rakefile}, %q{lib/finger_parameters.rb}, %q{lib/hand_parameters.rb}, %q{lib/hands_parameters.rb}, %q{lib/key.rb}, %q{lib/keyboard.rb}, %q{lib/keyboards/uk-keyboard}, %q{lib/parameters.rb}, %q{lib/rows_parameters.rb}, %q{lib/teanalyzer.rb}, %q{lib/triad.rb}, %q{spec/hand_parameters_spec.rb}, %q{spec/key_spec.rb}, %q{spec/keyboard_spec.rb}, %q{spec/teanalyzer_spec.rb}, %q{spec/triad_spec.rb}, %q{teanalyzer.gemspec}]
   s.homepage = %q{https://github.com/Enceradeira/teanalyzer}
   s.rdoc_options = [%q{--line-numbers}, %q{--inline-source}, %q{--title}, %q{Teanalyzer}, %q{--main}, %q{README}]
   s.require_paths = [%q{lib}]
