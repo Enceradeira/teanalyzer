@@ -2,6 +2,9 @@ require File.expand_path('./../../app/triad', __FILE__)
 require File.expand_path('./../../app/keyboard', __FILE__)
 
 describe 'Triad' do
+  before(:each) do
+    Parameters.reset # reset to default configuration
+  end
   context 'abc' do
     subject { Triad.new('a', 'b', 'c') }
     describe '==' do
@@ -18,6 +21,23 @@ describe 'Triad' do
     describe 'base_effort' do
       it 'should account for no effort on 1st key' do
         subject.base_effort.should ==(0)
+      end
+    end
+    describe 'penalty effort' do
+      it 'should add up all penalties' do
+        # following configuration yields a penalty of 0.2 for every key
+        Parameters.configure do |p|
+          # adjust penalties in order to have the same penalty for every key (simpler test)
+          p.default_penalty = 0.2
+          p.hands_penalty_weight = 0.0
+          p.rows_penalty_weight = 0.0
+          p.fingers_penalty_weight = 0.0
+          # adjust weight in order to test them
+          p.key_1_weight = 0.5
+          p.key_2_weight = 0.4
+          p.key_3_weight = 0.3
+        end
+        subject.penalty_effort.should == (0.5*0.2*(1+0.4*0.2*(1+0.3*0.2)))
       end
     end
   end

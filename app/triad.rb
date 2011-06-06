@@ -31,6 +31,10 @@ class Triad
     keys_accessor(lambda { |k| k.distance }, &block)
   end
 
+  def keys_penalty &block
+    keys_accessor(lambda { |k| k.penalty }, &block)
+  end
+
   def keys_accessor(accessor, &block)
     t = keys(accessor)
     block.call(t[0], t[1], t[2])
@@ -110,16 +114,12 @@ class Triad
 
   public
   OVERLAP = 2
-  K1 = 1
-  K2 = 1
-  K3 = 1
 
   def initialize(char1, char2, char3)
     @char1 = char1
     @char2 = char2
     @char3 = char3
     @keys = [Keyboard.get_key_for(@char1), Keyboard.get_key_for(@char2), Keyboard.get_key_for(@char3)]
-    @parameters = Parameters.instance
   end
 
   def text
@@ -202,13 +202,20 @@ class Triad
   end
 
   def base_effort
-    keys_distance { |d1, d2, d3| K1*d1*(1+K2*d2*(1+K3*d3)) }
+    p = Parameters.instance
+    keys_distance { |d1, d2, d3| p.key_1_weight*d1*(1+p.key_2_weight*d2*(1+p.key_3_weight*d3)) }
+  end
+
+  def penalty_effort
+    p = Parameters.instance
+    keys_penalty { |d1, d2, d3| p.key_1_weight*d1*(1+p.key_2_weight*d2*(1+p.key_3_weight*d3)) }
   end
 
   def path_effort
-    (hand_effort * @parameters.hands_stroke_path_weight +
-        row_effort * @parameters.rows_stroke_path_weight +
-        finger_effort * @parameters.rows_finger_path_weight)
+    p = Parameters.instance
+    (hand_effort * p.hands_stroke_path_weight +
+        row_effort * p.rows_stroke_path_weight +
+        finger_effort * p.rows_finger_path_weight)
   end
 
   def ==(another)

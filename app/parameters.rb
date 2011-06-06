@@ -5,11 +5,18 @@ class Parameters
   public
   attr_accessor :default_penalty, :hands, :rows, :hands_penalty_weight, :rows_penalty_weight, :fingers_penalty_weight
   attr_accessor :hands_stroke_path_weight, :rows_stroke_path_weight, :rows_finger_path_weight
+  attr_accessor :key_1_weight, :key_2_weight, :key_3_weight
 
   def initialize
     @default_penalty = 0.0
     @hands = HandsParameters.new
     @rows  = RowsParameters.new
+
+    # key weights (in triple)
+    @key_1_weight = 1.0
+    @key_2_weight = 1.0
+    @key_3_weight = 1.0
+
     # penalty weights
     @hands_penalty_weight = 0.0
     @rows_penalty_weight = 1.0
@@ -47,6 +54,10 @@ class Parameters
   @@instance = Parameters.new
   def self.instance
       @@instance
+  end
+
+  def self.reset
+    @@instance = Parameters.new
   end
 
   def self.configure

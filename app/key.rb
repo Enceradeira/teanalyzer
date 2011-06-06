@@ -3,53 +3,56 @@ require File.expand_path('./../parameters', __FILE__)
 class Key
   private
   def p_hand
+    p = Parameters.instance
     case @hand
       when :left
-        @parameters.hands.left.penalty
+        p.hands.left.penalty
       when :right
-        @parameters.hands.right.penalty
+        p.hands.right.penalty
       else
         raise ArgumentError, @hand
     end
   end
 
   def p_row
+    p = Parameters.instance
     case @row
       when :first_row
-        @parameters.rows.row_1_penalty_bottom
+        p.rows.row_1_penalty_bottom
       when :second_row
-        @parameters.rows.row_2_penalty_home
+        p.rows.row_2_penalty_home
       when :third_row
-        @parameters.rows.row_3_penalty
+        p.rows.row_3_penalty
       when :forth_row
-        @parameters.rows.row_4_penalty_top
+        p.rows.row_4_penalty_top
       else
         raise ArgumentError, @row
     end
   end
 
   def p_finger
+    p = Parameters.instance
     case @finger
       when :finger_0
-        @parameters.hands.left.finger_0_penalty
+        p.hands.left.finger_0_penalty
       when :finger_1
-        @parameters.hands.left.finger_1_penalty
+        p.hands.left.finger_1_penalty
       when :finger_2
-        @parameters.hands.left.finger_2_penalty
+        p.hands.left.finger_2_penalty
       when :finger_3
-        @parameters.hands.left.finger_3_penalty
+        p.hands.left.finger_3_penalty
       when :finger_4
-        @parameters.hands.left.finger_4_penalty
+        p.hands.left.finger_4_penalty
       when :finger_5
-        @parameters.hands.right.finger_0_penalty
+        p.hands.right.finger_0_penalty
       when :finger_6
-        @parameters.hands.right.finger_1_penalty
+        p.hands.right.finger_1_penalty
       when :finger_7
-        @parameters.hands.right.finger_2_penalty
+        p.hands.right.finger_2_penalty
       when :finger_8
-        @parameters.hands.right.finger_3_penalty
+        p.hands.right.finger_3_penalty
       when :finger_9
-        @parameters.hands.right.finger_4_penalty
+        p.hands.right.finger_4_penalty
       else
         raise ArgumentError, @finger
     end
@@ -64,7 +67,6 @@ class Key
     @hand = hand
     @row = row
     @finger = finger
-    @parameters = Parameters.instance
   end
 
   def finger_idx
@@ -96,7 +98,7 @@ class Key
   end
 
   def penalty
-    p = @parameters
+    p = Parameters.instance
     w0 = p.default_penalty
     w_hand = p.hands_penalty_weight
     w_row = p.rows_penalty_weight

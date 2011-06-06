@@ -4,8 +4,6 @@ require File.expand_path('./../parameters', __FILE__)
 class Keyboard
   private
   def self.configure_keys
-    p = @parameters
-
     @keys = []
     # 4th row from left to right
     # @keys << Key.new('¬`¦', 5.0, :left, :forth_row, :finger_0) # problem with encoding but it's an unimportant one anyway
@@ -72,12 +70,7 @@ class Keyboard
   end
 
   def self.initialize
-    configure_defaults
     configure_keys
-  end
-
-  def self.configure_defaults
-    @parameters = Parameters.new
   end
 
   initialize
