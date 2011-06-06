@@ -1,8 +1,18 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    allison (2.0.3)
     diff-lcs (1.1.2)
-    rake (0.9.1)
+    echoe (4.6.0)
+      allison (>= 2.0.3)
+      gemcutter (>= 0.7.0)
+      rake (>= 0.9.0)
+      rdoc (>= 3.6.1)
+      rubyforge (>= 2.0.4)
+    gemcutter (0.7.0)
+    json_pure (1.5.1)
+    rake (0.9.0)
+    rdoc (3.6.1)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -11,10 +21,13 @@ GEM
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
+    rubyforge (2.0.4)
+      json_pure (>= 1.1.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  rake
+  echoe
+  rake (= 0.9.0)
   rspec (>= 2.6)
