@@ -82,216 +82,303 @@ describe 'Triad' do
       triads.should have(0).items
     end
   end
-  describe 'hand_effort' do
-    describe 'both hand used, not alternating' do
-      subject { Triad.new 'e', 'e', 'm' }
-      specify { subject.hand_effort.should be(0) }
-      subject { Triad.new 'o', 'p', 'e' }
-      specify { subject.hand_effort.should be(0) }
-    end
-    describe 'alternating' do
-      subject { Triad.new 'a', 'j', 'a' }
-      specify { subject.hand_effort.should be(1) }
-      subject { Triad.new 's', 'o', 't' }
-      specify { subject.hand_effort.should be(1) }
-    end
-    describe 'same' do
-      subject { Triad.new 'a', 's', 'e' }
-      specify { subject.hand_effort.should be(2) }
-      subject { Triad.new 'm', 'o', 'n' }
-      specify { subject.hand_effort.should be(2) }
-    end
-  end
-  describe 'row_effort' do
-    describe 'same' do
-      context 'ert' do
-        subject { Triad.new 'e', 'r', 't' }
-        specify { subject.row_effort.should be(0) }
-      end
-      context 'als' do
-        subject { Triad.new 'a', 'l', 's' }
-        specify { subject.row_effort.should be(0) }
-
-      end
-    end
-    describe 'downward progression, with repetition' do
-      context 'ern' do
-        subject { Triad.new 'e', 'r', 'n' }
-        specify { subject.row_effort.should be(1) }
-      end
-      context 'kxn' do
-        subject { Triad.new 'k', 'x', 'm' }
-        specify { subject.row_effort.should be(1) }
-      end
-    end
-    describe 'upward progression, with repetition' do
-      context 'ade' do
-        subject { Triad.new 'a', 'd', 'e' }
-        specify { subject.row_effort.should be(2) }
-      end
-      context 'nal' do
-        subject { Triad.new 'n', 'a', 'l' }
-        specify { subject.row_effort.should be(2) }
-      end
-    end
-    describe 'some different, not monotonic, max row change 1' do
-      context 'aef' do
-        subject { Triad.new 'a', 'e', 'f' }
-        specify { subject.row_effort.should be(3) }
-      end
-      context 'oar' do
-        subject { Triad.new 'o', 'a', 'r' }
-        specify { subject.row_effort.should be(3) }
-      end
-      context 'cvf' do
-        subject { Triad.new 'c', 'f', 'v' }
-        specify { subject.row_effort.should be(3) }
-      end
-    end
-    describe 'downward progression' do
-      context 'eln' do
-        subject { Triad.new 'e', 'l', 'n' }
-        specify { subject.row_effort.should be(4) }
-      end
-      context 'pax' do
-        subject { Triad.new 'p', 'a', 'x' }
-        specify { subject.row_effort.should be(4) }
-      end
-    end
-    describe 'some different, not monotonic, max row change downward > 1' do
-      context 'hen' do
-        subject { Triad.new 'h', 'e', 'n' }
-        specify { subject.row_effort.should be(5) }
-      end
-      context 'kib' do
-        subject { Triad.new 'k', 'i', 'b' }
-        specify { subject.row_effort.should be(5) }
-      end
-    end
-    describe 'upward progression' do
-      context 'zaw' do
-        subject { Triad.new 'z', 'a', 'w' }
-        specify { subject.row_effort.should be(6) }
-      end
-      context 'nap' do
-        subject { Triad.new 'n', 'a', 'p' }
-        specify { subject.row_effort.should be(6) }
-      end
-    end
-    describe 'some different, not monotonic, max row change upward >1' do
-      context 'abe' do
-        subject { Triad.new 'a', 'b', 'e' }
-        specify { subject.row_effort.should be(7) }
-      end
-      context 'axe' do
-        subject { Triad.new 'a', 'x', 'e' }
-        specify { subject.row_effort.should be(7) }
-      end
-      context 'brv' do
-        subject { Triad.new 'b', 'r', 'v' }
-        specify { subject.row_effort.should be(7) }
-      end
-    end
-  end
-  describe 'finger_effort' do
-    describe 'all different, monotonic progression' do
-      context 'asd' do
-        subject { Triad.new 'a', 's', 'd' }
-        specify { subject.finger_effort.should be(0) }
-      end
-      context 'pua' do
-        subject { Triad.new 'p', 'u', 'a' }
-        specify { subject.finger_effort.should be(0) }
-      end
-    end
-    describe 'some different, key repeat, monotonic progression' do
-      context 'app' do
-        subject { Triad.new 'a', 'p', 'p' }
-        specify { subject.finger_effort.should be(1) }
-      end
-      context 'err' do
-        subject { Triad.new 'e', 'r', 'r' }
-        specify { subject.finger_effort.should be(1) }
-      end
-      context 'aab' do
-        subject { Triad.new 'a', 'a', 'b' }
-        specify { subject.finger_effort.should be(1) }
-      end
-    end
-    describe 'rolling' do
-      context 'bih' do
-        subject { Triad.new 'b', 'i', 'h' }
-        specify { subject.finger_effort.should be(2) }
-      end
-      context 'fad' do
-        subject { Triad.new 'f', 'a', 'd' }
-        specify { subject.finger_effort.should be(2) }
-      end
-    end
-    describe 'all different, not monotonic' do
-      context 'yak' do
-        subject { Triad.new 'y', 'a', 'k' }
-        specify { subject.finger_effort.should be(3) }
-      end
-      context 'nep' do
-        subject { Triad.new 'n', 'e', 'p' }
-        specify { subject.finger_effort.should be(3) }
-      end
-      context 'dhx' do
-        subject { Triad.new 'd', 'h', 'x' }
-        specify { subject.finger_effort.should be(3) }
-      end
-    end
-    describe 'some different, not monotonic progression' do
-      context 'kri' do
-        subject { Triad.new 'k', 'r', 'i' }
-        specify { subject.finger_effort.should be(4) }
-      end
-      context 'maj' do
-        subject { Triad.new 'm', 'a', 'j' }
-        specify { subject.finger_effort.should be(4) }
-      end
-      context 'aha' do
-        subject { Triad.new 'a', 'h', 'a' }
-        specify { subject.finger_effort.should be(4) }
-      end
-    end
-    describe 'same, key repeat' do
-      context 'cee' do
-        subject { Triad.new 'c', 'e', 'e' }
-        specify { subject.finger_effort.should be(5) }
-      end
-      context 'loo' do
-        subject { Triad.new 'l', 'o', 'o' }
-        specify { subject.finger_effort.should be(5) }
-      end
-      context 'ffg' do
-        subject { Triad.new 'f', 'f', 'g' }
-        specify { subject.finger_effort.should be(5) }
-      end
-    end
-    describe 'some different, no key repeat, monotonic progression' do
-      context 'abr' do
-        subject { Triad.new 'a', 'b', 'r' }
-        specify { subject.finger_effort.should be(6) }
-      end
-      context 'bde' do
-        subject { Triad.new 'b', 'd', 'e' }
-        specify { subject.finger_effort.should be(6) }
-      end
-    end
-    describe 'same, no key repeat' do
-      context 'tfb' do
-        subject { Triad.new 't', 'f', 'b' }
-        specify { subject.finger_effort.should be(7) }
-      end
-      context 'dec' do
-        subject { Triad.new 'd', 'e', 'c' }
-        specify { subject.finger_effort.should be(7) }
-      end
-    end
-  end
   describe 'path_effort' do
-    # context 'adj'
+    describe 'hand_effort' do
+      describe 'both hand used, not alternating' do
+        subject { Triad.new 'e', 'e', 'm' }
+        specify { subject.hand_effort.should be(0) }
+        subject { Triad.new 'o', 'p', 'e' }
+        specify { subject.hand_effort.should be(0) }
+      end
+      describe 'alternating' do
+        subject { Triad.new 'a', 'j', 'a' }
+        specify { subject.hand_effort.should be(1) }
+        subject { Triad.new 's', 'o', 't' }
+        specify { subject.hand_effort.should be(1) }
+      end
+      describe 'same' do
+        subject { Triad.new 'a', 's', 'e' }
+        specify { subject.hand_effort.should be(2) }
+        subject { Triad.new 'm', 'o', 'n' }
+        specify { subject.hand_effort.should be(2) }
+      end
+    end
+    describe 'row_effort' do
+      describe 'same' do
+        context 'ert' do
+          subject { Triad.new 'e', 'r', 't' }
+          specify { subject.row_effort.should be(0) }
+        end
+        context 'als' do
+          subject { Triad.new 'a', 'l', 's' }
+          specify { subject.row_effort.should be(0) }
+
+        end
+      end
+      describe 'downward progression, with repetition' do
+        context 'ern' do
+          subject { Triad.new 'e', 'r', 'n' }
+          specify { subject.row_effort.should be(1) }
+        end
+        context 'kxn' do
+          subject { Triad.new 'k', 'x', 'm' }
+          specify { subject.row_effort.should be(1) }
+        end
+      end
+      describe 'upward progression, with repetition' do
+        context 'ade' do
+          subject { Triad.new 'a', 'd', 'e' }
+          specify { subject.row_effort.should be(2) }
+        end
+        context 'nal' do
+          subject { Triad.new 'n', 'a', 'l' }
+          specify { subject.row_effort.should be(2) }
+        end
+      end
+      describe 'some different, not monotonic, max row change 1' do
+        context 'aef' do
+          subject { Triad.new 'a', 'e', 'f' }
+          specify { subject.row_effort.should be(3) }
+        end
+        context 'oar' do
+          subject { Triad.new 'o', 'a', 'r' }
+          specify { subject.row_effort.should be(3) }
+        end
+        context 'cvf' do
+          subject { Triad.new 'c', 'f', 'v' }
+          specify { subject.row_effort.should be(3) }
+        end
+      end
+      describe 'downward progression' do
+        context 'eln' do
+          subject { Triad.new 'e', 'l', 'n' }
+          specify { subject.row_effort.should be(4) }
+        end
+        context 'pax' do
+          subject { Triad.new 'p', 'a', 'x' }
+          specify { subject.row_effort.should be(4) }
+        end
+      end
+      describe 'some different, not monotonic, max row change downward > 1' do
+        context 'hen' do
+          subject { Triad.new 'h', 'e', 'n' }
+          specify { subject.row_effort.should be(5) }
+        end
+        context 'kib' do
+          subject { Triad.new 'k', 'i', 'b' }
+          specify { subject.row_effort.should be(5) }
+        end
+        context 'bok' do
+          subject { Triad.new 'b', 'o', 'k' }
+          specify { subject.row_effort.should be(5) }
+        end
+      end
+      describe 'upward progression' do
+        context 'zaw' do
+          subject { Triad.new 'z', 'a', 'w' }
+          specify { subject.row_effort.should be(6) }
+        end
+        context 'nap' do
+          subject { Triad.new 'n', 'a', 'p' }
+          specify { subject.row_effort.should be(6) }
+        end
+      end
+      describe 'some different, not monotonic, max row change upward >1' do
+        context 'abe' do
+          subject { Triad.new 'a', 'b', 'e' }
+          specify { subject.row_effort.should be(7) }
+        end
+        context 'axe' do
+          subject { Triad.new 'a', 'x', 'e' }
+          specify { subject.row_effort.should be(7) }
+        end
+        context 'brv' do
+          subject { Triad.new 'b', 'r', 'v' }
+          specify { subject.row_effort.should be(7) }
+        end
+      end
+    end
+    describe 'finger_effort' do
+      describe 'all different, monotonic progression' do
+        context 'asd' do
+          subject { Triad.new 'a', 's', 'd' }
+          specify { subject.finger_effort.should be(0) }
+        end
+        context 'pua' do
+          subject { Triad.new 'p', 'u', 'a' }
+          specify { subject.finger_effort.should be(0) }
+        end
+      end
+      describe 'some different, key repeat, monotonic progression' do
+        context 'app' do
+          subject { Triad.new 'a', 'p', 'p' }
+          specify { subject.finger_effort.should be(1) }
+        end
+        context 'err' do
+          subject { Triad.new 'e', 'r', 'r' }
+          specify { subject.finger_effort.should be(1) }
+        end
+        context 'aab' do
+          subject { Triad.new 'a', 'a', 'b' }
+          specify { subject.finger_effort.should be(1) }
+        end
+      end
+      describe 'rolling' do
+        context 'bih' do
+          subject { Triad.new 'b', 'i', 'h' }
+          specify { subject.finger_effort.should be(2) }
+        end
+        context 'fad' do
+          subject { Triad.new 'f', 'a', 'd' }
+          specify { subject.finger_effort.should be(2) }
+        end
+      end
+      describe 'all different, not monotonic' do
+        context 'yak' do
+          subject { Triad.new 'y', 'a', 'k' }
+          specify { subject.finger_effort.should be(3) }
+        end
+        context 'nep' do
+          subject { Triad.new 'n', 'e', 'p' }
+          specify { subject.finger_effort.should be(3) }
+        end
+        context 'dhx' do
+          subject { Triad.new 'd', 'h', 'x' }
+          specify { subject.finger_effort.should be(3) }
+        end
+      end
+      describe 'some different, not monotonic progression' do
+        context 'kri' do
+          subject { Triad.new 'k', 'r', 'i' }
+          specify { subject.finger_effort.should be(4) }
+        end
+        context 'maj' do
+          subject { Triad.new 'm', 'a', 'j' }
+          specify { subject.finger_effort.should be(4) }
+        end
+        context 'aha' do
+          subject { Triad.new 'a', 'h', 'a' }
+          specify { subject.finger_effort.should be(4) }
+        end
+      end
+      describe 'same, key repeat' do
+        context 'cee' do
+          subject { Triad.new 'c', 'e', 'e' }
+          specify { subject.finger_effort.should be(5) }
+        end
+        context 'loo' do
+          subject { Triad.new 'l', 'o', 'o' }
+          specify { subject.finger_effort.should be(5) }
+        end
+        context 'ffg' do
+          subject { Triad.new 'f', 'f', 'g' }
+          specify { subject.finger_effort.should be(5) }
+        end
+        context 'bvb' do
+          subject { Triad.new 'b', 'v', 'b' }
+          specify { subject.finger_effort.should be(5) }
+        end
+      end
+      describe 'some different, no key repeat, monotonic progression' do
+        context 'abr' do
+          subject { Triad.new 'a', 'b', 'r' }
+          specify { subject.finger_effort.should be(6) }
+        end
+        context 'bde' do
+          subject { Triad.new 'b', 'd', 'e' }
+          specify { subject.finger_effort.should be(6) }
+        end
+      end
+      describe 'same, no key repeat' do
+        context 'tfb' do
+          subject { Triad.new 't', 'f', 'b' }
+          specify { subject.finger_effort.should be(7) }
+        end
+        context 'dec' do
+          subject { Triad.new 'd', 'e', 'c' }
+          specify { subject.finger_effort.should be(7) }
+        end
+      end
+    end
+
+    context 'examples from carpalx' do
+      before(:all) do
+        Parameters.configure do |p|
+          p.hands_stroke_path_weight = 1.0
+          p.rows_stroke_path_weight = 0.3
+          p.rows_finger_path_weight = 0.3
+        end
+      end
+      describe 'each combination of triple once (hand,row,finger-effort)' do
+        context 'no effort' do
+          specify { Triad.new('a', 'd', 'j').path_effort.should be==(0) }
+        end
+        context 'just finger effort' do
+          specify { Triad.new('a', 'a', 'h').path_effort.should be==(0.3) }
+        end
+        context 'just row effort' do
+          specify { Triad.new('a', 'b', 'm').path_effort.should be==(0.3) }
+        end
+        context 'just hand effort' do
+          specify { Triad.new('a', 'd', 'f').path_effort.should be==(2.0) }
+        end
+        context 'hand and row effort' do
+          specify { Triad.new('a', 'c', 'b').path_effort.should be==(2.3) }
+        end
+        context 'row and finger effort' do
+          specify { Triad.new('a', 'a', 'm').path_effort.should be==(0.6) }
+        end
+        context 'hand, row and finger effort' do
+          specify { Triad.new('a', 'd', 'w').path_effort.should be==(3.2) }
+        end
+      end
+    end
+    describe 'random examples' do
+      specify { Triad.new('a', 'i', 'u').path_effort.to_s.should be==(1.2).to_s }
+      specify { Triad.new('b', 'c', 'm').path_effort.to_s.should be==(0.9).to_s }
+      specify { Triad.new('a', 'b', 'c').path_effort.to_s.should be==(2.9).to_s }
+      specify { Triad.new('a', 'f', 'w').path_effort.to_s.should be==(3.2).to_s }
+      specify { Triad.new('c', 'a', 'f').path_effort.to_s.should be==(3.5).to_s }
+      specify { Triad.new('e', 'f', 'm').path_effort.to_s.should be==(1.2).to_s }
+      # next is right in my opinion
+      specify { Triad.new('b', 'o', 'k').path_effort.to_s.should be==(2.1).to_s }
+      specify { Triad.new('a', 'n', 'j').path_effort.to_s.should be==(2.7).to_s }
+      specify { Triad.new('a', 'h', 'a').path_effort.to_s.should be==(2.2).to_s }
+      specify { Triad.new('e', 'k', 'b').path_effort.to_s.should be==(2.8).to_s }
+      specify { Triad.new('q', 'h', 'z').path_effort.to_s.should be==(3.4).to_s }
+      specify { Triad.new('b', 'o', 'f').path_effort.to_s.should be==(3.7).to_s }
+      specify { Triad.new('c', 'a', 'b').path_effort.to_s.should be==(3.8).to_s }
+      specify { Triad.new('e', 'a', 'c').path_effort.to_s.should be==(4.4).to_s }
+      specify { Triad.new('c', 'd', 'c').path_effort.to_s.should be==(4.4).to_s }
+      specify { Triad.new('b', 'e', 'f').path_effort.to_s.should be==(4.7).to_s }
+      specify { Triad.new('a', 'c', 'd').path_effort.to_s.should be==(4.7).to_s }
+      specify { Triad.new('e', 'j', 'm').path_effort.to_s.should be==(3.0).to_s }
+      specify { Triad.new('b', 'f', 'u').path_effort.to_s.should be==(3.6).to_s }
+      specify { Triad.new('a', 'r', 'm').path_effort.to_s.should be==(2.1).to_s }
+      specify { Triad.new('a', 'u', 'n').path_effort.to_s.should be==(3.9).to_s }
+      specify { Triad.new('b', 'h', 'r').path_effort.to_s.should be==(4.0).to_s }
+      specify { Triad.new('a', 'o', 'b').path_effort.to_s.should be==(3.7).to_s }
+      specify { Triad.new('b', 's', 'e').path_effort.to_s.should be==(4.4).to_s }
+      specify { Triad.new('f', 't', 'g').path_effort.to_s.should be==(5.0).to_s }
+      specify { Triad.new('a', 'e', 'v').path_effort.to_s.should be==(4.1).to_s }
+      specify { Triad.new('b', 'e', 'b').path_effort.to_s.should be==(5.3).to_s }
+      specify { Triad.new('d', 'e', 'c').path_effort.to_s.should be==(6.2).to_s }
+    end
+    describe 'all key combinations' do
+      it 'should return a number', :slow => true do
+        keys = Keyboard.keys
+        keys.each do |k1|
+          keys.each do |k2|
+            keys.each do |k3|
+              c1 = k1.chars.first
+              c2 = k2.chars.first
+              c3 = k3.chars.first
+              puts "testing triple (#{c1},#{c2},#{c3})"
+              Triad.new(c1, c2, c3).path_effort.should be >= 0
+            end
+          end
+        end
+      end
+    end
   end
 end

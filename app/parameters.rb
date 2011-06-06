@@ -4,6 +4,7 @@ require File.expand_path('./../rows_parameters', __FILE__)
 class Parameters
   public
   attr_accessor :default_penalty, :hands, :rows, :hands_penalty_weight, :rows_penalty_weight, :fingers_penalty_weight
+  attr_accessor :hands_stroke_path_weight, :rows_stroke_path_weight, :rows_finger_path_weight
 
   def initialize
     @default_penalty = 0.0
@@ -36,6 +37,11 @@ class Parameters
     @hands.right.finger_7_penalty = 0.0
     @hands.right.finger_8_penalty = 0.0
     @hands.right.finger_9_penalty = 0.0
+
+    # stroke path weights
+    @hands_stroke_path_weight = 1.0
+    @rows_stroke_path_weight = 0.3
+    @rows_finger_path_weight = 0.3
   end
 
   @@instance = Parameters.new

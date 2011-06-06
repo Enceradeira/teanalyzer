@@ -1,3 +1,6 @@
 class Teanalyzer
-  # To change this template use File | Settings | File Templates.
+  def self.calculate word
+    triads = Triad.from_word(word)
+
+  end
 end

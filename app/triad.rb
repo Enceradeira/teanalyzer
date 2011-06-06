@@ -119,6 +119,7 @@ class Triad
     @char2 = char2
     @char3 = char3
     @keys = [Keyboard.get_key_for(@char1), Keyboard.get_key_for(@char2), Keyboard.get_key_for(@char3)]
+    @parameters = Parameters.instance
   end
 
   def text
@@ -177,7 +178,7 @@ class Triad
     elsif keys_key { |k1, k2, k3| some_fingers_different(k1, k2, k3) && no_key_repeats(k1, k2, k3) && monotonic_progression(k1, k2, k3) }
       # some different, no key repeat, monotonic progression
       6
-    elsif keys_key { |k1, k2, k3| all_fingers_same(k1, k2, k3) && (k1 == k2 || k2 == k3) }
+    elsif keys_key { |k1, k2, k3| all_fingers_same(k1, k2, k3) && (k1 == k2 || k2 == k3 || k1 == k3) }
       # same, key repeat
       5
     elsif keys_key { |k1, k2, k3| some_fingers_different(k1, k2, k3) && not_monotonic_progression(k1, k2, k3) }
@@ -202,6 +203,12 @@ class Triad
 
   def base_effort
     keys_distance { |d1, d2, d3| K1*d1*(1+K2*d2*(1+K3*d3)) }
+  end
+
+  def path_effort
+    (hand_effort * @parameters.hands_stroke_path_weight +
+        row_effort * @parameters.rows_stroke_path_weight +
+        finger_effort * @parameters.rows_finger_path_weight)
   end
 
   def ==(another)
