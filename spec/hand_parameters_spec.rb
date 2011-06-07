@@ -1,4 +1,4 @@
-require File.expand_path('./../../lib/hand_parameters', __FILE__)
+require File.expand_path('./../../lib/core/hand_parameters', __FILE__)
 
 describe 'HandParameters' do
   subject { HandParameters.new }

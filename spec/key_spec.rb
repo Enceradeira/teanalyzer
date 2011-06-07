@@ -1,4 +1,4 @@
-require File.expand_path('./../../lib/key', __FILE__)
+require File.expand_path('./../../lib/core/key', __FILE__)
 require File.expand_path('./../../lib/parameters', __FILE__)
 
 describe 'Key' do

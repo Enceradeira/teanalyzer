@@ -1,5 +1,5 @@
 require File.expand_path('./../key', __FILE__)
-require File.expand_path('./../parameters', __FILE__)
+require File.expand_path('./../../parameters', __FILE__)
 
 class Keyboard
   private

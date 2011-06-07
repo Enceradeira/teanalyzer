@@ -1,4 +1,4 @@
-require File.expand_path('./../triad', __FILE__)
+require File.expand_path('./../core/triad', __FILE__)
 
 class Teanalyzer
   private

@@ -1,4 +1,4 @@
-require File.expand_path('./../../lib/keyboard', __FILE__)
+require File.expand_path('./../../lib/core/keyboard', __FILE__)
 require File.expand_path('./../../lib/parameters', __FILE__)
 
 describe 'Keyboard' do

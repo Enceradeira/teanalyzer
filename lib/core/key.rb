@@ -1,4 +1,4 @@
-require File.expand_path('./../parameters', __FILE__)
+require File.expand_path('./../../parameters', __FILE__)
 
 class Key
   private

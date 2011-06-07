@@ -1,5 +1,5 @@
-require File.expand_path('./../hands_parameters', __FILE__)
-require File.expand_path('./../rows_parameters', __FILE__)
+require File.expand_path('./../core/hands_parameters', __FILE__)
+require File.expand_path('./../core/rows_parameters', __FILE__)
 
 class Parameters
   public
