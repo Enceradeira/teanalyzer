@@ -5,9 +5,13 @@ Teanalyzer is a ruby implementation of the typing effort model described by Mart
 (see http://mkweb.bcgsc.ca/carpalx/?typing_effort for details)
 
 Usage:
-Teanalyzer.calculate('hello')            #=> 5.83333333333333
+# for normalized effort of a text
+Teanalyzer.calculate('Hello World')             #=> 7.8
 
-Configuration (optional):
+# for effort of a word (not normalized)
+Teanalyzer.calculate_total('imaginative')      #=> 76.0
+
+# for configuration
 Parameters.configure do |p|
     p.base_effort_weight = 0.5
     p.penalty_effort_weight = 0.4

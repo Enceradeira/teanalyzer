@@ -3,7 +3,26 @@ require File.expand_path('./../../lib/keyboard', __FILE__)
 
 describe 'Triad' do
   before(:each) do
-    Parameters.reset # reset to default configuration
+    # set an configuration for testing purposes
+    Parameters.reset
+    Parameters.configure do |p|
+      # weights
+      p.hands_penalty_weight = 0.0
+      p.rows_penalty_weight = 1.0
+      p.fingers_penalty_weight = 2.0
+      p.rows.row_1_penalty_bottom = 1.0
+
+      # hand penalty
+      p.hands.left.penalty = 1.0
+      p.hands.right.penalty = 1.0
+
+      # finger penalty
+      p.hands.left.finger_0_penalty = 2.0
+      p.hands.left.finger_1_penalty = 1.0
+
+      p.hands.right.finger_5_penalty = 2.0
+      p.hands.right.finger_6_penalty = 1.0
+    end
   end
   context 'abc' do
     subject { Triad.new('a', 'b', 'c') }
@@ -51,10 +70,10 @@ describe 'Triad' do
     end
   end
 
-  describe 'from_word' do
+  describe 'from_text' do
     it '#typingishard should split in triples' do
       word = 'typingishard'
-      triads = Triad.from_word(word)
+      triads = Triad.from_text(word)
 
       triads.should have(word.length-2).items
       triads.should include(Triad.new('t', 'y', 'p'))
@@ -69,18 +88,24 @@ describe 'Triad' do
       triads.should include(Triad.new('a', 'r', 'd'))
     end
     it '#typ should split in triples' do
-      triads = Triad.from_word('typ')
+      triads = Triad.from_text('typ')
 
       triads.should have(1).items
       triads.should include(Triad.new('t', 'y', 'p'))
     end
     it '#emtpy should not split' do
-      triads = Triad.from_word('')
+      triads = Triad.from_text('')
 
       triads.should have(0).items
     end
     it '#nil should not split' do
-      triads = Triad.from_word(nil)
+      triads = Triad.from_text(nil)
+
+      triads.should have(0).items
+    end
+    it 'should return nil for invalid chars' do
+      # ö is invalid on uk-keyboards
+      triads = Triad.from_text('Jörg')
 
       triads.should have(0).items
     end
