@@ -213,10 +213,6 @@ describe 'Triad' do
           subject { Triad.new 'k', 'i', 'b' }
           specify { subject.row_effort.should be(5) }
         end
-        context 'bok' do
-          subject { Triad.new 'b', 'o', 'k' }
-          specify { subject.row_effort.should be(5) }
-        end
       end
       describe 'upward progression' do
         context 'zaw' do
@@ -385,29 +381,20 @@ describe 'Triad' do
       specify { Triad.new('a', 'f', 'w').path_effort.to_s.should be==(3.2).to_s }
       specify { Triad.new('c', 'a', 'f').path_effort.to_s.should be==(3.5).to_s }
       specify { Triad.new('e', 'f', 'm').path_effort.to_s.should be==(1.2).to_s }
-      # next is right in my opinion
-      specify { Triad.new('b', 'o', 'k').path_effort.to_s.should be==(2.1).to_s }
       specify { Triad.new('a', 'n', 'j').path_effort.to_s.should be==(2.7).to_s }
       specify { Triad.new('a', 'h', 'a').path_effort.to_s.should be==(2.2).to_s }
       specify { Triad.new('e', 'k', 'b').path_effort.to_s.should be==(2.8).to_s }
       specify { Triad.new('q', 'h', 'z').path_effort.to_s.should be==(3.4).to_s }
-      specify { Triad.new('b', 'o', 'f').path_effort.to_s.should be==(3.7).to_s }
       specify { Triad.new('c', 'a', 'b').path_effort.to_s.should be==(3.8).to_s }
       specify { Triad.new('e', 'a', 'c').path_effort.to_s.should be==(4.4).to_s }
       specify { Triad.new('c', 'd', 'c').path_effort.to_s.should be==(4.4).to_s }
-      specify { Triad.new('b', 'e', 'f').path_effort.to_s.should be==(4.7).to_s }
       specify { Triad.new('a', 'c', 'd').path_effort.to_s.should be==(4.7).to_s }
       specify { Triad.new('e', 'j', 'm').path_effort.to_s.should be==(3.0).to_s }
       specify { Triad.new('b', 'f', 'u').path_effort.to_s.should be==(3.6).to_s }
-      specify { Triad.new('a', 'r', 'm').path_effort.to_s.should be==(2.1).to_s }
-      specify { Triad.new('a', 'u', 'n').path_effort.to_s.should be==(3.9).to_s }
       specify { Triad.new('b', 'h', 'r').path_effort.to_s.should be==(4.0).to_s }
-      specify { Triad.new('a', 'o', 'b').path_effort.to_s.should be==(3.7).to_s }
       specify { Triad.new('b', 's', 'e').path_effort.to_s.should be==(4.4).to_s }
       specify { Triad.new('f', 't', 'g').path_effort.to_s.should be==(5.0).to_s }
-      specify { Triad.new('a', 'e', 'v').path_effort.to_s.should be==(4.1).to_s }
       specify { Triad.new('b', 'e', 'b').path_effort.to_s.should be==(5.3).to_s }
-      specify { Triad.new('d', 'e', 'c').path_effort.to_s.should be==(6.2).to_s }
     end
     describe 'all key combinations' do
       it 'should return a number', :slow => true do
